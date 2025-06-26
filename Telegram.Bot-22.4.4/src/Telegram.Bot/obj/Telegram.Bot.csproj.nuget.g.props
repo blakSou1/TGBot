@@ -5,12 +5,12 @@
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Solidey\.nuget\packages\</NuGetPackageFolders>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Dern0\.nuget\packages\</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
-    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.13.2</NuGetToolVersion>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.14.0</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="C:\Users\Solidey\.nuget\packages\" />
+    <SourceRoot Include="C:\Users\Dern0\.nuget\packages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(TargetFramework)' == '' AND '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)microsoft.sourcelink.common\8.0.0\buildMultiTargeting\Microsoft.SourceLink.Common.props" Condition="Exists('$(NuGetPackageRoot)microsoft.sourcelink.common\8.0.0\buildMultiTargeting\Microsoft.SourceLink.Common.props')" />
@@ -164,13 +164,13 @@
     <Import Project="$(NuGetPackageRoot)isexternalinit\1.0.3\build\IsExternalInit.props" Condition="Exists('$(NuGetPackageRoot)isexternalinit\1.0.3\build\IsExternalInit.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net6.0' AND '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgMicrosoft_SourceLink_Common Condition=" '$(PkgMicrosoft_SourceLink_Common)' == '' ">C:\Users\Solidey\.nuget\packages\microsoft.sourcelink.common\8.0.0</PkgMicrosoft_SourceLink_Common>
-    <PkgMicrosoft_Build_Tasks_Git Condition=" '$(PkgMicrosoft_Build_Tasks_Git)' == '' ">C:\Users\Solidey\.nuget\packages\microsoft.build.tasks.git\8.0.0</PkgMicrosoft_Build_Tasks_Git>
-    <PkgMicrosoft_SourceLink_GitHub Condition=" '$(PkgMicrosoft_SourceLink_GitHub)' == '' ">C:\Users\Solidey\.nuget\packages\microsoft.sourcelink.github\8.0.0</PkgMicrosoft_SourceLink_GitHub>
+    <PkgMicrosoft_SourceLink_Common Condition=" '$(PkgMicrosoft_SourceLink_Common)' == '' ">C:\Users\Dern0\.nuget\packages\microsoft.sourcelink.common\8.0.0</PkgMicrosoft_SourceLink_Common>
+    <PkgMicrosoft_Build_Tasks_Git Condition=" '$(PkgMicrosoft_Build_Tasks_Git)' == '' ">C:\Users\Dern0\.nuget\packages\microsoft.build.tasks.git\8.0.0</PkgMicrosoft_Build_Tasks_Git>
+    <PkgMicrosoft_SourceLink_GitHub Condition=" '$(PkgMicrosoft_SourceLink_GitHub)' == '' ">C:\Users\Dern0\.nuget\packages\microsoft.sourcelink.github\8.0.0</PkgMicrosoft_SourceLink_GitHub>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' AND '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgMicrosoft_SourceLink_Common Condition=" '$(PkgMicrosoft_SourceLink_Common)' == '' ">C:\Users\Solidey\.nuget\packages\microsoft.sourcelink.common\8.0.0</PkgMicrosoft_SourceLink_Common>
-    <PkgMicrosoft_Build_Tasks_Git Condition=" '$(PkgMicrosoft_Build_Tasks_Git)' == '' ">C:\Users\Solidey\.nuget\packages\microsoft.build.tasks.git\8.0.0</PkgMicrosoft_Build_Tasks_Git>
-    <PkgMicrosoft_SourceLink_GitHub Condition=" '$(PkgMicrosoft_SourceLink_GitHub)' == '' ">C:\Users\Solidey\.nuget\packages\microsoft.sourcelink.github\8.0.0</PkgMicrosoft_SourceLink_GitHub>
+    <PkgMicrosoft_SourceLink_Common Condition=" '$(PkgMicrosoft_SourceLink_Common)' == '' ">C:\Users\Dern0\.nuget\packages\microsoft.sourcelink.common\8.0.0</PkgMicrosoft_SourceLink_Common>
+    <PkgMicrosoft_Build_Tasks_Git Condition=" '$(PkgMicrosoft_Build_Tasks_Git)' == '' ">C:\Users\Dern0\.nuget\packages\microsoft.build.tasks.git\8.0.0</PkgMicrosoft_Build_Tasks_Git>
+    <PkgMicrosoft_SourceLink_GitHub Condition=" '$(PkgMicrosoft_SourceLink_GitHub)' == '' ">C:\Users\Dern0\.nuget\packages\microsoft.sourcelink.github\8.0.0</PkgMicrosoft_SourceLink_GitHub>
   </PropertyGroup>
 </Project>

@@ -1,21 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "D:\\myProject\\TGBot\\Telegram.Bot-22.4.4\\src\\Telegram.Bot\\Telegram.Bot.csproj": {}
+    "D:\\Application\\Work\\TGBot\\Telegram.Bot-22.4.4\\src\\Telegram.Bot\\Telegram.Bot.csproj": {}
   },
   "projects": {
-    "D:\\myProject\\TGBot\\Telegram.Bot-22.4.4\\src\\Telegram.Bot\\Telegram.Bot.csproj": {
+    "D:\\Application\\Work\\TGBot\\Telegram.Bot-22.4.4\\src\\Telegram.Bot\\Telegram.Bot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\myProject\\TGBot\\Telegram.Bot-22.4.4\\src\\Telegram.Bot\\Telegram.Bot.csproj",
+        "projectUniqueName": "D:\\Application\\Work\\TGBot\\Telegram.Bot-22.4.4\\src\\Telegram.Bot\\Telegram.Bot.csproj",
         "projectName": "Telegram.Bot",
-        "projectPath": "D:\\myProject\\TGBot\\Telegram.Bot-22.4.4\\src\\Telegram.Bot\\Telegram.Bot.csproj",
-        "packagesPath": "C:\\Users\\Solidey\\.nuget\\packages\\",
-        "outputPath": "D:\\myProject\\TGBot\\Telegram.Bot-22.4.4\\src\\Telegram.Bot\\obj\\",
+        "projectPath": "D:\\Application\\Work\\TGBot\\Telegram.Bot-22.4.4\\src\\Telegram.Bot\\Telegram.Bot.csproj",
+        "packagesPath": "C:\\Users\\Dern0\\.nuget\\packages\\",
+        "outputPath": "D:\\Application\\Work\\TGBot\\Telegram.Bot-22.4.4\\src\\Telegram.Bot\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
-          "C:\\Users\\Solidey\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Dern0\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0",
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net6.0": {
@@ -122,7 +122,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301\\RuntimeIdentifierGraph.json"
         },
         "netstandard2.0": {
           "targetAlias": "netstandard2.0",
@@ -195,7 +195,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

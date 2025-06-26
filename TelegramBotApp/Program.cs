@@ -1,10 +1,4 @@
-﻿using System;
-using Telegram.Bot;
-using Telegram.Bot.Types;
-using Telegram.Bot.Polling;
-using Telegram.Bot.Types.Enums;
-
-class Program // классы
+﻿class Program // классы
 {
   static async Task Main(string[] args)//методы
   {

@@ -4,30 +4,33 @@ using Telegram.Bot.Types;
 
 public class TelegramBot
 {
-  private readonly TelegramBotClient _botClient;
-  private readonly string _token = "TOKEN";
+    private readonly TelegramBotClient _botClient;
+    private readonly string _token = "TOKEN";
 
-  public TelegramBot()
-  {
-      _botClient = new TelegramBotClient(_token);
-  }
+    private Serializer serializer = new();
 
-  public async Task StartAsync()
-  {
-      var receiverOptions = new ReceiverOptions
-      {
-          AllowedUpdates = { } // Получаем все типы обновлений
-      };
+    public TelegramBot()
+    {
+        _botClient = new TelegramBotClient(_token);
+        serializer.Init();
+    }
 
-      _botClient.StartReceiving(
-          HandleUpdateAsync,
-          HandleErrorAsync,
-          receiverOptions
-      );
+    public async Task StartAsync()
+    {
+        var receiverOptions = new ReceiverOptions
+        {
+            AllowedUpdates = { } // Получаем все типы обновлений
+        };
 
-      var me = await _botClient.GetMe();
-      Console.WriteLine($"Бот {me.Username} запущен!");
-  }
+        _botClient.StartReceiving(
+            HandleUpdateAsync,
+            HandleErrorAsync,
+            receiverOptions
+        );
+
+        var me = await _botClient.GetMe();
+        Console.WriteLine($"Бот {me.Username} запущен!");
+    }
 
     private async Task HandleErrorAsync(ITelegramBotClient client, Exception exception, HandleErrorSource source, CancellationToken token)
     {

@@ -1,6 +1,8 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 public class TelegramBot
 {
@@ -34,11 +36,43 @@ public class TelegramBot
 
     private async Task HandleErrorAsync(ITelegramBotClient client, Exception exception, HandleErrorSource source, CancellationToken token)
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"Ошибка: {exception.Message}");
     }
 
+    /// <summary>
+    /// Обработка входящих сообщений
+    /// </summary>
+    /// <param name="client"></param>
+    /// <param name="update"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
     private async Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token)
     {
-        throw new NotImplementedException();
+        switch (update.Type)
+        {
+            case UpdateType.Message:
+                await HandleMessageAsync(client, update.Message, token);
+                break;
+            case UpdateType.CallbackQuery:
+                //await HandleCallbackQueryAsync(client, update.CallbackQuery, token);
+                break;
+        }
+    }
+    private async Task HandleMessageAsync(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
+    {
+        if (message?.Text == null) return;
+
+        long chatId = message.Chat.Id;
+
+        switch (message.Text.ToLower())
+        {
+            case "/start":
+                break;
+            case "/menu":
+                break;
+            default:
+                break;
+        }
     }
 }

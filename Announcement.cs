@@ -12,11 +12,13 @@ public enum Gorod
 
 public enum RayoneOrenburg
 {
-    Orenburg,
-    Samara
+    Центральный,
+    Дзержинский
 }
 public enum RayoneSamara
 {
-   Центральный,
-Дзержинский
+    Октябрьский,
+    Советский,
+    Железнодорожный
+
 }

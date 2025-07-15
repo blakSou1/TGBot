@@ -2,31 +2,31 @@
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 public class TelegramBot
 {
     private static TelegramBotClient _botClient;
     private static readonly string _token = "8034068836:AAH-xrKPOaAD1NF_pymDj0TWn-1VeQHE0tg";
-
-    private static Serializer serializer = new();
+    
     private static Admin admin = new();
     private static User user = new();
+    private static Data data = new();
 
     static void Main()
     {
         _botClient = new TelegramBotClient(_token);
-        serializer.Init();
         _ = StartAsync();
 
         while (true)
         {
-            Console.WriteLine("Нажмите Enter для завершения");
-            string text = Console.ReadLine();
-            if (text == "Stop")
-                return;
+            Console.WriteLine("Press any key to exit...");
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
+            if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                System.Environment.Exit(0);
+            }
         }
-
-
     }
 
     public static async Task StartAsync()
@@ -62,32 +62,43 @@ public class TelegramBot
     /// <exception cref="NotImplementedException"></exception>
     private static async Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token)
     {
-        if (update.Message != null)
+        if (update.Message is null) return;
+        switch (update.Type)
         {
-            switch (update.Type)
-            {
-                case UpdateType.Message:
-                    await HandleMessageAsync(client, update.Message, token);
-                    break;
-                case UpdateType.CallbackQuery:
-                    //await HandleCallbackQueryAsync(client, update.CallbackQuery, token);
-                    break;
-            }
+            case UpdateType.Message:
+                await HandleMessageAsync(client, update.Message, token);
+                break;
+            case UpdateType.CallbackQuery:
+                //await HandleCallbackQueryAsync(client, update.CallbackQuery, token);
+                break;
         }
+        
         await Task.CompletedTask;
     }
     private static async Task HandleMessageAsync(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
     {
-        if (message?.Text == null) return;
-
         long chatId = message.Chat.Id;
 
+        var photos = data.streams.Select(x =>  (IAlbumInputMedia)new InputMediaPhoto(x)).ToList();
+        InputMediaPhoto photo = (InputMediaPhoto)photos.First();
+        photos.Remove(photos.First());
+        photo.Caption = "hello";
+        photos.Insert(0, photo);
+
+        Message[] messages = await botClient.SendMediaGroup(chatId, photos);
+        
+        var message1 = await botClient.SendMessage(chatId, "messages", replyMarkup: new string[][]
+        {
+            ["Help me"],
+            ["Call me ☎️", "Write me ✉️"]
+        });
+        await botClient.DeleteMessage(chatId, message1.Id);
+        
         // Проверка на пароль администратора
-        if (message.Text == admin._adminPassword)
+        if (admin._adminPassword.Equals(message.Text,  StringComparison.OrdinalIgnoreCase))
         {
             // Добавляем чат в список администраторских
             admin._adminChats.TryAdd(chatId, true);
-
             await _botClient.SendMessage(
                 chatId,
                 "✅ Вы успешно авторизованы как администратор!",

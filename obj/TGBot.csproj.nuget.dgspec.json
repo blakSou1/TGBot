@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Application\\Work\\TGBot\\TGBot.csproj": {}
+    "D:\\myProject\\TGBot\\TGBot.csproj": {}
   },
   "projects": {
-    "D:\\Application\\Work\\TGBot\\TGBot.csproj": {
+    "D:\\myProject\\TGBot\\TGBot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Application\\Work\\TGBot\\TGBot.csproj",
+        "projectUniqueName": "D:\\myProject\\TGBot\\TGBot.csproj",
         "projectName": "TGBot",
-        "projectPath": "D:\\Application\\Work\\TGBot\\TGBot.csproj",
-        "packagesPath": "C:\\Users\\Dern0\\.nuget\\packages\\",
-        "outputPath": "D:\\Application\\Work\\TGBot\\obj\\",
+        "projectPath": "D:\\myProject\\TGBot\\TGBot.csproj",
+        "packagesPath": "C:\\Users\\Solidey\\.nuget\\packages\\",
+        "outputPath": "D:\\myProject\\TGBot\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Dern0\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Solidey\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -38,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -65,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

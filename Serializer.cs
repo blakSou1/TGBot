@@ -1,6 +1,9 @@
 public class Serializer
 {
-    public Announcement announcement;
+    public static List<Announcement> announcement = new();
+    public static List<string> gorods = [];
+    public static List<string> rayens = [];
+
     public string path = "";
 
     public void Init()

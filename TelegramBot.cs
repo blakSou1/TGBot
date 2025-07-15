@@ -100,17 +100,36 @@ public class TelegramBot
         switch (message.Text)
         {
             case "/start":
-
-            await _botClient.SendMessage(
-                chatId,
-                "Выберите действие:",
-                cancellationToken: cancellationToken,
-                replyMarkup: user.GetUserKeyboard()
-            );
-
+                await _botClient.SendMessage(
+                    chatId,
+                    Param.choice,
+                    cancellationToken: cancellationToken,
+                    replyMarkup: user.GetUserKeyboard()
+                );
                 break;
+
+            case Param.announcement:
+                await _botClient.SendMessage(
+                    chatId,
+                    Param.gorod,
+                    cancellationToken: cancellationToken,
+                    replyMarkup: user.GetUserKeyboardGorod()
+                );
+                break;
+
+            case Param.FAQ:
+                await _botClient.SendMessage(
+                    chatId,
+                    "Выберите действие:",
+                    cancellationToken: cancellationToken,
+                    replyMarkup: user.GetUserKeyboard()
+                );
+                break;
+
+
             case "/menu":
                 break;
+
             default:
                 await _botClient.SendMessage(
                     chatId,

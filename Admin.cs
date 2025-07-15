@@ -11,9 +11,9 @@ public class Admin
     {
         return new ReplyKeyboardMarkup(
         [
-            ["➕ Добавить объявление", "✏️ Редактировать объявление"],
-            ["❌ Удалить объявление", "📋 Список объявлений"],
-            ["🚪 Выйти"]
+            [Param.addAnnouncement, Param.editAnnouncement],
+            [Param.deleteAnnouncement, Param.listAnnouncement],
+            [Param.exit]
         ])
         {
             ResizeKeyboard = true

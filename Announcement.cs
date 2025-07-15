@@ -1,22 +1,8 @@
 public class Announcement
 {
-    public Gorod gorod;
+    public string gorod;
+    public string rayone;
+
     public List<Data> data;
 }
 
-public enum Gorod
-{
-    Orenburg,
-    Samara
-}
-
-public enum RayoneOrenburg
-{
-    Orenburg,
-    Samara
-}
-public enum RayoneSamara
-{
-   Центральный,
-Дзержинский
-}

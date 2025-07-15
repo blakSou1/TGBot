@@ -92,7 +92,6 @@ public class TelegramBot
             ["Help me"],
             ["Call me ☎️", "Write me ✉️"]
         });
-        await botClient.DeleteMessage(chatId, message1.Id);
         
         // Проверка на пароль администратора
         if (admin._adminPassword.Equals(message.Text,  StringComparison.OrdinalIgnoreCase))

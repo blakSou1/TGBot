@@ -10,6 +10,7 @@ public class TelegramBot
 
     private static Serializer serializer = new();
     private static Admin admin = new();
+    private static User user = new();
 
     static void Main()
     {
@@ -17,8 +18,15 @@ public class TelegramBot
         serializer.Init();
         _ = StartAsync();
 
-        Console.WriteLine("Нажмите Enter для завершения");
-        Console.ReadLine();
+        while (true)
+        {
+            Console.WriteLine("Нажмите Enter для завершения");
+            string text = Console.ReadLine();
+            if (text == "Stop")
+                return;
+        }
+
+
     }
 
     public static async Task StartAsync()
@@ -92,6 +100,14 @@ public class TelegramBot
         switch (message.Text)
         {
             case "/start":
+
+            await _botClient.SendMessage(
+                chatId,
+                "Выберите действие:",
+                cancellationToken: cancellationToken,
+                replyMarkup: user.GetUserKeyboard()
+            );
+
                 break;
             case "/menu":
                 break;

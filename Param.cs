@@ -13,6 +13,10 @@ public static class Param
     public const string addAnnouncement = "➕ Добавить объявление";
     public const string editAnnouncement = "✏️ Редактировать объявление";
     public const string listAnnouncement = "📋 Список объявлений";
-    
+
+    public const string dopAdminPanel = "дополнительная панель";
+    public const string addGorod = "➕ Добавить город";
+    public const string exitDopPanel = "🚪 Выйти к основной панели";
+
     #endregion
 }

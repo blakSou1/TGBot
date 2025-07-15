@@ -108,6 +108,7 @@ public class TelegramBot
                 );
                 break;
 
+            #region User
             case Param.announcement:
                 await _botClient.SendMessage(
                     chatId,
@@ -125,7 +126,37 @@ public class TelegramBot
                     replyMarkup: user.GetUserKeyboard()
                 );
                 break;
+            #endregion
 
+            #region Admin
+            case Param.dopAdminPanel:
+                await _botClient.SendMessage(
+                    chatId,
+                    "Выберите действие:",
+                    cancellationToken: cancellationToken,
+                    replyMarkup: admin.GetDopAdminKeyboard()
+                );
+                break;
+            case Param.addGorod:
+                await _botClient.SendMessage(
+                    chatId,
+                    "Выберите действие:",
+                    cancellationToken: cancellationToken
+                    //replyMarkup: admin.GetDopAdminKeyboard()
+                );
+                break;
+            case Param.exit:
+                admin._adminChats.TryRemove(chatId, out _);
+
+                await _botClient.SendMessage(
+                    chatId,
+                    "Выберите действие:",
+                    cancellationToken: cancellationToken,
+                    replyMarkup: user.GetUserKeyboard()
+                );
+                break;
+
+            #endregion
 
             case "/menu":
                 break;
@@ -134,9 +165,11 @@ public class TelegramBot
                 await _botClient.SendMessage(
                     chatId,
                     "команда не зарегестрирована попробуйте еще раз!",
-                    cancellationToken: cancellationToken
+                    cancellationToken: cancellationToken,
+                    replyMarkup: admin._adminChats[chatId]? admin.GetAdminKeyboard() : user.GetUserKeyboard()
                 );
                 break;
         }
     }
+    
 }

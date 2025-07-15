@@ -13,7 +13,18 @@ public class Admin
         [
             [Param.addAnnouncement, Param.editAnnouncement],
             [Param.deleteAnnouncement, Param.listAnnouncement],
-            [Param.exit]
+            [Param.dopAdminPanel, Param.exit]
+        ])
+        {
+            ResizeKeyboard = true
+        };
+    }
+    public ReplyKeyboardMarkup GetDopAdminKeyboard()
+    {
+        return new ReplyKeyboardMarkup(
+        [
+            [Param.addGorod],
+            [Param.exitDopPanel]
         ])
         {
             ResizeKeyboard = true

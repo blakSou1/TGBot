@@ -7,7 +7,10 @@ using Telegram.Bot.Types.ReplyMarkups;
 public class TelegramBot
 {
     private static TelegramBotClient _botClient;
-    private static readonly string _token = "8034068836:AAH-xrKPOaAD1NF_pymDj0TWn-1VeQHE0tg";
+    
+    private static JSONParser _parser = new JSONParser();
+    
+    private static readonly string _token = _parser.ReadFile("token.txt");
     
     private static Admin admin = new();
     private static User user = new();

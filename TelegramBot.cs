@@ -79,13 +79,15 @@ public class TelegramBot
     {
         long chatId = message.Chat.Id;
 
-        var photos = data.streams.Select(x =>  (IAlbumInputMedia)new InputMediaPhoto(x)).ToList();
+        data.photos = data.InitializeStream();
+        var photos = data.photos.Select(x =>  (IAlbumInputMedia)new InputMediaPhoto(x)).ToList();
         InputMediaPhoto photo = (InputMediaPhoto)photos.First();
         photos.Remove(photos.First());
         photo.Caption = "hello";
         photos.Insert(0, photo);
 
         Message[] messages = await botClient.SendMediaGroup(chatId, photos);
+        data.ClearData(data.photos);
         
         var message1 = await botClient.SendMessage(chatId, "messages", replyMarkup: new string[][]
         {

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Gammes\\DevPrograms\\Github\\TGBot\\TGBot.csproj": {}
+    "D:\\Application\\Work\\TGBot\\TGBot.csproj": {}
   },
   "projects": {
-    "G:\\Gammes\\DevPrograms\\Github\\TGBot\\TGBot.csproj": {
+    "D:\\Application\\Work\\TGBot\\TGBot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Gammes\\DevPrograms\\Github\\TGBot\\TGBot.csproj",
+        "projectUniqueName": "D:\\Application\\Work\\TGBot\\TGBot.csproj",
         "projectName": "TGBot",
-        "projectPath": "G:\\Gammes\\DevPrograms\\Github\\TGBot\\TGBot.csproj",
-        "packagesPath": "C:\\Users\\Shad1\\.nuget\\packages\\",
-        "outputPath": "G:\\Gammes\\DevPrograms\\Github\\TGBot\\obj\\",
+        "projectPath": "D:\\Application\\Work\\TGBot\\TGBot.csproj",
+        "packagesPath": "C:\\Users\\Dern0\\.nuget\\packages\\",
+        "outputPath": "D:\\Application\\Work\\TGBot\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Shad1\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Dern0\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -65,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

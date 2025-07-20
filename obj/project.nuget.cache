@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "n2zMOf+lAO8=",
+  "dgSpecHash": "XFAzz7uo0I0=",
   "success": true,
   "projectFilePath": "D:\\Application\\Work\\TGBot\\TGBot.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\Dern0\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
     "C:\\Users\\Dern0\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\8.0.0\\microsoft.extensions.options.configurationextensions.8.0.0.nupkg.sha512",
     "C:\\Users\\Dern0\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\Dern0\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Dern0\\.nuget\\packages\\system.text.json\\8.0.5\\system.text.json.8.0.5.nupkg.sha512",
     "C:\\Users\\Dern0\\.nuget\\packages\\telegram.bot\\22.5.2-dev.6\\telegram.bot.22.5.2-dev.6.nupkg.sha512"
   ],

@@ -6,7 +6,9 @@ public static class Param
     public const string gorod = "Выберите город";
     public const string choice  = "Выберите действие:";
     #endregion
-
+    public const string backToMain = "⬅️ На главную";
+    
+    
     #region Admin
     public const string deleteAnnouncement = "❌ Удалить объявление";
     public const string exit = "🚪 Выйти";

@@ -12,6 +12,7 @@ public class User
             ResizeKeyboard = true
         };
     }
+
     public ReplyKeyboardMarkup GetUserKeyboardGorod()
     {
         var keyboard = new List<KeyboardButton[]>();
@@ -37,5 +38,19 @@ public class User
         //     ResizeKeyboard = true
         // };
     }
-
+    
+    // Новый метод для клавиатуры FAQ
+    public ReplyKeyboardMarkup GetFAQKeyboard()
+    {
+        return new ReplyKeyboardMarkup(
+        [
+            ["Как сделать заказ?", "Способы оплаты"],
+            ["Доставка и самовывоз", "Гарантии"],
+            [Param.backToMain] // Кнопка возврата в главное меню
+        ])
+        {
+            ResizeKeyboard = true,
+            OneTimeKeyboard = true // Клавиатура скроется после выбора
+        };
+    }
 }

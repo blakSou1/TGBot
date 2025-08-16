@@ -71,3 +71,4 @@ G:\Gammes\DevPrograms\Github\TGBot\obj\Debug\net9.0\TGBot.pdb
 G:\Gammes\DevPrograms\Github\TGBot\obj\Debug\net9.0\TGBot.genruntimeconfig.cache
 G:\Gammes\DevPrograms\Github\TGBot\obj\Debug\net9.0\ref\TGBot.dll
 G:\Gammes\DevPrograms\Github\TGBot\bin\Debug\net9.0\Newtonsoft.Json.dll
+d:\Application\Work\TGBot\bin\Debug\net9.0\Newtonsoft.Json.dll

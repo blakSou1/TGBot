@@ -7,11 +7,11 @@ using Telegram.Bot.Types.ReplyMarkups;
 public class TelegramBot
 {
     private static TelegramBotClient _botClient;
-    
+
     private static JSONParser _parser = new JSONParser();
-    
-    private static readonly string _token = _parser.ReadFile("token.txt");
-    
+
+    private static readonly string _token = "8034068836:AAH-xrKPOaAD1NF_pymDj0TWn-1VeQHE0tg" ;
+
     private static Admin admin = new();
     private static User user = new();
     private static Data data = new();
@@ -48,7 +48,62 @@ public class TelegramBot
         var me = await _botClient.GetMe();
         Console.WriteLine($"Бот {me.Username} запущен!");
     }
+private static async Task HandleMessageAsync(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
+{
+    long chatId = message.Chat.Id;
 
+
+    switch (message.Text)
+    {
+        case "/start":
+            await _botClient.SendMessage(
+                chatId,
+                Param.choice,
+                cancellationToken: cancellationToken,
+                replyMarkup: user.GetUserKeyboard()
+            );
+            break;
+
+        case Param.FAQ:
+            await _botClient.SendMessage(
+                chatId,
+                "Выберите интересующий вас вопрос:",
+                cancellationToken: cancellationToken,
+                replyMarkup: user.GetFAQKeyboard() // Используем новую клавиатуру
+            );
+            break;
+
+        case Param.backToMain:
+            await _botClient.SendMessage(
+                chatId,
+                Param.choice,
+                cancellationToken: cancellationToken,
+                replyMarkup: user.GetUserKeyboard() // Возвращаем основную клавиатуру
+            );
+            break;
+
+        // Обработка вопросов FAQ
+        case "Как сделать заказ?":
+            await _botClient.SendMessage(
+                chatId,
+                "Для оформления заказа... [текст ответа]",
+                cancellationToken: cancellationToken,
+                replyMarkup: user.GetFAQKeyboard() // Оставляем клавиатуру FAQ
+            );
+            break;
+
+        case "Способы оплаты":
+            await _botClient.SendMessage(
+                chatId,
+                "Мы принимаем... [текст ответа]",
+                cancellationToken: cancellationToken,
+                replyMarkup: user.GetFAQKeyboard()
+            );
+            break;
+
+        // ... аналогично для других кнопок FAQ
+    }
+}
     private static async Task HandleErrorAsync(ITelegramBotClient client, Exception exception, HandleErrorSource source, CancellationToken token)
     {
         Console.WriteLine($"Ошибка: {exception.Message}");
@@ -63,27 +118,32 @@ public class TelegramBot
     /// <param name="token"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
+
     private static async Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token)
+{
+    if (update.Message is null) return;
+    
+    switch (update.Type)
     {
-        if (update.Message is null) return;
-        switch (update.Type)
-        {
-            case UpdateType.Message:
-                await HandleMessageAsync(client, update.Message, token);
-                break;
-            case UpdateType.CallbackQuery:
-                //await HandleCallbackQueryAsync(client, update.CallbackQuery, token);
-                break;
-        }
-        
-        await Task.CompletedTask;
+        case UpdateType.Message:
+            // Изменили название метода с HandleMessageAsync на HandleUserMessageAsync
+            await HandleUserMessageAsync(client, update.Message, token);
+            break;
+        case UpdateType.CallbackQuery:
+            //await HandleCallbackQueryAsync(client, update.CallbackQuery, token);
+            break;
     }
-    private static async Task HandleMessageAsync(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
-    {
-        long chatId = message.Chat.Id;
+    
+    await Task.CompletedTask;
+}
+
+// Переименовали метод
+    private static async Task HandleUserMessageAsync(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
+{
+    long chatId = message.Chat.Id;
 
         data.photos = data.InitializeStream();
-        var photos = data.photos.Select(x =>  (IAlbumInputMedia)new InputMediaPhoto(x)).ToList();
+        var photos = data.photos.Select(x => (IAlbumInputMedia)new InputMediaPhoto(x)).ToList();
         InputMediaPhoto photo = (InputMediaPhoto)photos.First();
         photos.Remove(photos.First());
         photo.Caption = "hello";
@@ -91,15 +151,15 @@ public class TelegramBot
 
         Message[] messages = await botClient.SendMediaGroup(chatId, photos);
         data.ClearData(data.photos);
-        
+
         var message1 = await botClient.SendMessage(chatId, "messages", replyMarkup: new string[][]
         {
             ["Help me"],
             ["Call me ☎️", "Write me ✉️"]
         });
-        
+
         // Проверка на пароль администратора
-        if (admin._adminPassword.Equals(message.Text,  StringComparison.OrdinalIgnoreCase))
+        if (admin._adminPassword.Equals(message.Text, StringComparison.OrdinalIgnoreCase))
         {
             // Добавляем чат в список администраторских
             admin._adminChats.TryAdd(chatId, true);
@@ -157,7 +217,7 @@ public class TelegramBot
                     chatId,
                     "Выберите действие:",
                     cancellationToken: cancellationToken
-                    //replyMarkup: admin.GetDopAdminKeyboard()
+                //replyMarkup: admin.GetDopAdminKeyboard()
                 );
                 break;
             case Param.exit:
@@ -181,10 +241,10 @@ public class TelegramBot
                     chatId,
                     "команда не зарегестрирована попробуйте еще раз!",
                     cancellationToken: cancellationToken,
-                    replyMarkup: admin._adminChats[chatId]? admin.GetAdminKeyboard() : user.GetUserKeyboard()
+                    replyMarkup: admin._adminChats[chatId] ? admin.GetAdminKeyboard() : user.GetUserKeyboard()
                 );
                 break;
         }
     }
-    
+
 }

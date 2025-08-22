@@ -30,12 +30,14 @@ public class Data
 
     public FileStream[] InitializeStream()
     {
+        string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        Console.WriteLine(appDirectory);
         FileStream[] fstream =
         {
-            LoadFile($@"C:\{userName}\TGBot\DataPhotos", "photo (2).jpg"),
-            LoadFile($@"C:\{userName}\TGBot\DataPhotos", "photo (3).jpg"),
-            LoadFile($@"C:\{userName}\TGBot\DataPhotos", "photo (4).jpg"),
-            LoadFile($@"C:\{userName}\TGBot\DataPhotos", "photo.jpg")
+            LoadFile($@"{appDirectory}DataPhotos", "photo (2).jpg"),
+            LoadFile($@"{appDirectory}DataPhotos", "photo (3).jpg"),
+            LoadFile($@"{appDirectory}DataPhotos", "photo (4).jpg"),
+            LoadFile($@"{appDirectory}DataPhotos", "photo.jpg")
         };
         return fstream;
     }

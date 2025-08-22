@@ -2,7 +2,6 @@
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
 
 public class TelegramBot
 {
@@ -10,16 +9,17 @@ public class TelegramBot
 
     private static JSONParser _parser = new JSONParser();
 
-    private static readonly string _token = "8034068836:AAH-xrKPOaAD1NF_pymDj0TWn-1VeQHE0tg" ;
+    private static readonly string _token = _parser.ReadFile($"{AppDomain.CurrentDomain.BaseDirectory}token.txt");
 
-    private static Admin admin = new();
-    private static User user = new();
-    private static Data data = new();
+    private static Admin _admin = new();
+    private static User _user = new();
+    private static Data _data = new();
 
     static void Main()
     {
         _botClient = new TelegramBotClient(_token);
-        _ = StartAsync();
+
+        _botClient.OnMessage += OnMessageWrited;
 
         while (true)
         {
@@ -32,219 +32,123 @@ public class TelegramBot
         }
     }
 
-    public static async Task StartAsync()
+    private static async Task OnMessageWrited(Telegram.Bot.Types.Message message, UpdateType type)
     {
-        var receiverOptions = new ReceiverOptions
+        string? text = message.Text;
+
+        if (_admin._adminPassword.Equals(message.Text, StringComparison.OrdinalIgnoreCase))
         {
-            AllowedUpdates = { } // Получаем все типы обновлений
-        };
+            // Добавляем чат в список администраторских
+            _admin._adminChats.TryAdd(message.Chat.Id, true);
+            await _botClient.SendMessage(
+                message.Chat.Id,
+                "✅ Вы успешно авторизованы как администратор!",
+                replyMarkup: _admin.GetAdminKeyboard()
+            );
+            _botClient.OnMessage += AdminPanel;
+            _botClient.OnMessage -= OnMessageWrited;
+            return;
+        }
+        switch (text)
+        {
+            case "/start":
+                await _botClient.SendMessage(
+                    message.Chat.Id,
+                    Param.choice,
+                    replyMarkup: _user.GetUserKeyboard()
+                );
+                break;
+            case Param.FAQ:
+                await _botClient.SendMessage(
+                    message.Chat.Id,
+                    "Выберите интересующий вас вопрос:",
+                    replyMarkup: _user.GetFAQKeyboard() // Используем новую клавиатуру
+                );
+                break;
 
-        _botClient.StartReceiving(
-            HandleUpdateAsync,
-            HandleErrorAsync,
-            receiverOptions
-        );
+            case Param.backToMain:
+                await _botClient.SendMessage(
+                    message.Chat.Id,
+                    Param.choice,
+                    replyMarkup: _user.GetUserKeyboard() // Возвращаем основную клавиатуру
+                );
+                break;
 
-        var me = await _botClient.GetMe();
-        Console.WriteLine($"Бот {me.Username} запущен!");
+            // Обработка вопросов FAQ
+            case "Как сделать заказ?":
+                await _botClient.SendMessage(
+                    message.Chat.Id,
+                    "Для оформления заказа... [текст ответа]",
+                    replyMarkup: _user.GetFAQKeyboard() // Оставляем клавиатуру FAQ
+                );
+                break;
+
+            case "Способы оплаты":
+                await _botClient.SendMessage(
+                    message.Chat.Id,
+                    "Мы принимаем... [текст ответа]",
+                    replyMarkup: _user.GetFAQKeyboard()
+                );
+                break;
+
+            default:
+                await _botClient.SendMessage(
+                    message.Chat.Id,
+                    "команда не зарегестрирована попробуйте еще раз!",
+                    replyMarkup: _admin._adminChats[message.Chat.Id] ? _admin.GetAdminKeyboard() : _user.GetUserKeyboard()
+                );
+                break;
+        }
+        
     }
-private static async Task HandleMessageAsync(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
-{
-    long chatId = message.Chat.Id;
 
-
-    switch (message.Text)
+    private static async Task AdminPanel(Message message, UpdateType type)
     {
-        case "/start":
-            await _botClient.SendMessage(
-                chatId,
-                Param.choice,
-                cancellationToken: cancellationToken,
-                replyMarkup: user.GetUserKeyboard()
-            );
-            break;
-
-        case Param.FAQ:
-            await _botClient.SendMessage(
-                chatId,
-                "Выберите интересующий вас вопрос:",
-                cancellationToken: cancellationToken,
-                replyMarkup: user.GetFAQKeyboard() // Используем новую клавиатуру
-            );
-            break;
-
-        case Param.backToMain:
-            await _botClient.SendMessage(
-                chatId,
-                Param.choice,
-                cancellationToken: cancellationToken,
-                replyMarkup: user.GetUserKeyboard() // Возвращаем основную клавиатуру
-            );
-            break;
-
-        // Обработка вопросов FAQ
-        case "Как сделать заказ?":
-            await _botClient.SendMessage(
-                chatId,
-                "Для оформления заказа... [текст ответа]",
-                cancellationToken: cancellationToken,
-                replyMarkup: user.GetFAQKeyboard() // Оставляем клавиатуру FAQ
-            );
-            break;
-
-        case "Способы оплаты":
-            await _botClient.SendMessage(
-                chatId,
-                "Мы принимаем... [текст ответа]",
-                cancellationToken: cancellationToken,
-                replyMarkup: user.GetFAQKeyboard()
-            );
-            break;
-
-        // ... аналогично для других кнопок FAQ
+        switch (message.Text)
+        {
+            case Param.dopAdminPanel:
+              await _botClient.SendMessage(
+                  message.Chat.Id,
+                  "Выберите действие:",
+                  replyMarkup: _admin.GetDopAdminKeyboard()
+              );
+              break;
+          case Param.addGorod:
+              await _botClient.SendMessage(
+                message.Chat.Id,
+                "Выберите действие:",
+                replyMarkup: _admin.GetDopAdminKeyboard()
+              );
+              break;
+          case Param.exit:
+              _admin._adminChats.TryRemove(message.Chat.Id, out _);
+                 await _botClient.SendMessage(
+                     message.Chat.Id,
+                     "Выберите действие:",
+                     replyMarkup: _user.GetUserKeyboard()
+                 );
+                _botClient.OnMessage -= AdminPanel;
+                _botClient.OnMessage += OnMessageWrited;
+                 break;  
+        }
+           
     }
-}
-    private static async Task HandleErrorAsync(ITelegramBotClient client, Exception exception, HandleErrorSource source, CancellationToken token)
+    private static async void LoadPhotos(Message msg)
     {
-        Console.WriteLine($"Ошибка: {exception.Message}");
-        await Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Обработка входящих сообщений
-    /// </summary>
-    /// <param name="client"></param>
-    /// <param name="update"></param>
-    /// <param name="token"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-
-    private static async Task HandleUpdateAsync(ITelegramBotClient client, Update update, CancellationToken token)
-{
-    if (update.Message is null) return;
-    
-    switch (update.Type)
-    {
-        case UpdateType.Message:
-            // Изменили название метода с HandleMessageAsync на HandleUserMessageAsync
-            await HandleUserMessageAsync(client, update.Message, token);
-            break;
-        case UpdateType.CallbackQuery:
-            //await HandleCallbackQueryAsync(client, update.CallbackQuery, token);
-            break;
-    }
-    
-    await Task.CompletedTask;
-}
-
-// Переименовали метод
-    private static async Task HandleUserMessageAsync(ITelegramBotClient botClient, Message message, CancellationToken cancellationToken)
-{
-    long chatId = message.Chat.Id;
-
-        data.photos = data.InitializeStream();
-        var photos = data.photos.Select(x => (IAlbumInputMedia)new InputMediaPhoto(x)).ToList();
+        _data.photos = _data.InitializeStream();
+        var photos = _data.photos.Select(x => (IAlbumInputMedia)new InputMediaPhoto(x)).ToList();
         InputMediaPhoto photo = (InputMediaPhoto)photos.First();
         photos.Remove(photos.First());
         photo.Caption = "hello";
         photos.Insert(0, photo);
 
-        Message[] messages = await botClient.SendMediaGroup(chatId, photos);
-        data.ClearData(data.photos);
+        Message[] messages = await _botClient.SendMediaGroup(msg.Chat.Id, photos);
+        _data.ClearData(_data.photos);
 
-        var message1 = await botClient.SendMessage(chatId, "messages", replyMarkup: new string[][]
+        var message1 = await _botClient.SendMessage(msg.Chat.Id, "messages", replyMarkup: new string[][]
         {
             ["Help me"],
             ["Call me ☎️", "Write me ✉️"]
         });
-
-        // Проверка на пароль администратора
-        if (admin._adminPassword.Equals(message.Text, StringComparison.OrdinalIgnoreCase))
-        {
-            // Добавляем чат в список администраторских
-            admin._adminChats.TryAdd(chatId, true);
-            await _botClient.SendMessage(
-                chatId,
-                "✅ Вы успешно авторизованы как администратор!",
-                cancellationToken: cancellationToken,
-                replyMarkup: admin.GetAdminKeyboard()
-            );
-            return;
-        }
-
-        switch (message.Text)
-        {
-            case "/start":
-                await _botClient.SendMessage(
-                    chatId,
-                    Param.choice,
-                    cancellationToken: cancellationToken,
-                    replyMarkup: user.GetUserKeyboard()
-                );
-                break;
-
-            #region User
-            case Param.announcement:
-                await _botClient.SendMessage(
-                    chatId,
-                    Param.gorod,
-                    cancellationToken: cancellationToken,
-                    replyMarkup: user.GetUserKeyboardGorod()
-                );
-                break;
-
-            case Param.FAQ:
-                await _botClient.SendMessage(
-                    chatId,
-                    "Выберите действие:",
-                    cancellationToken: cancellationToken,
-                    replyMarkup: user.GetUserKeyboard()
-                );
-                break;
-            #endregion
-
-            #region Admin
-            case Param.dopAdminPanel:
-                await _botClient.SendMessage(
-                    chatId,
-                    "Выберите действие:",
-                    cancellationToken: cancellationToken,
-                    replyMarkup: admin.GetDopAdminKeyboard()
-                );
-                break;
-            case Param.addGorod:
-                await _botClient.SendMessage(
-                    chatId,
-                    "Выберите действие:",
-                    cancellationToken: cancellationToken
-                //replyMarkup: admin.GetDopAdminKeyboard()
-                );
-                break;
-            case Param.exit:
-                admin._adminChats.TryRemove(chatId, out _);
-
-                await _botClient.SendMessage(
-                    chatId,
-                    "Выберите действие:",
-                    cancellationToken: cancellationToken,
-                    replyMarkup: user.GetUserKeyboard()
-                );
-                break;
-
-            #endregion
-
-            case "/menu":
-                break;
-
-            default:
-                await _botClient.SendMessage(
-                    chatId,
-                    "команда не зарегестрирована попробуйте еще раз!",
-                    cancellationToken: cancellationToken,
-                    replyMarkup: admin._adminChats[chatId] ? admin.GetAdminKeyboard() : user.GetUserKeyboard()
-                );
-                break;
-        }
     }
-
 }

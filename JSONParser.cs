@@ -23,11 +23,7 @@ public sealed class JSONParser
             {
                 if (reader.Value != null)
                 {
-                    if (reader.TokenType == JsonToken.PropertyName)
-                    {
-                        reader.Read();
-                        return reader.Value.ToString();
-                    }
+                    return reader.Value.ToString();
                 }
             }
         }
